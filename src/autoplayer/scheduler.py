@@ -7,8 +7,12 @@ import os
 import sys
 import importlib.util
 from .debug import discord_screenshot
+from zrcl3_uses import file
 
 class Scheduler:
+    DEFER_DAY : bool = False
+    config : dict = file.FileProperty('config.toml')
+
     def __init__(self, folder_path, overwrite_current_time=None):
         self.scheduler = sched.scheduler(time.time, time.sleep)
         self.folder_path = folder_path
@@ -22,8 +26,18 @@ class Scheduler:
 
     def load_and_schedule_tasks(self):
         for task in self.tasks:
+            if self.config.get(task, True) is False:
+                print(f"Skipping task {task} as it is marked as OFF")
+                continue
+
             module = self.load_task_module(task)
-            if module and hasattr(module, 'RUNTIME') and hasattr(module, 'MAXRUNTIME'):
+            if not module:
+                continue
+            if hasattr(module, 'OFF'):
+                print(f"Skipping task {task} as it is marked as OFF")
+                continue
+            
+            if hasattr(module, 'RUNTIME') and hasattr(module, 'MAXRUNTIME'):
                 print(f"Module {task} loaded successfully")
                 print(f"Task {task} loaded with RUNTIME {module.RUNTIME} and MAXRUNTIME {module.MAXRUNTIME} minutes")
                 self.schedule_task(module.RUNTIME, module.MAXRUNTIME, task)
@@ -32,7 +46,10 @@ class Scheduler:
         run_time = datetime.datetime.strptime(run_time, "%I%M %p").time()
         scheduled_time = datetime.datetime.combine(self.overwrite_current_time.date(), run_time)
         if scheduled_time < self.overwrite_current_time:
-            scheduled_time += datetime.timedelta(days=1)
+            if self.DEFER_DAY:
+                scheduled_time += datetime.timedelta(days=1)
+            else:
+                return
         delay = (scheduled_time - self.overwrite_current_time).total_seconds()
         print(f"Scheduling {task} to run at {scheduled_time} which is in {delay} seconds")
         self.scheduler.enter(delay, 1, self.execute_task, (int(max_runtime), task))
