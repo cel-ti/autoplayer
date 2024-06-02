@@ -35,6 +35,12 @@ def discord_webhook(image: Image.Image):
     else:
         print(f"Failed to send image. Status code: {response.status_code}")
 
+def discord_screenshot():
+    import pyscreeze
+
+    image = pyscreeze.screenshot()
+
+    discord_webhook(image)
 
 def debug_img(image : Image.Image):
     if not _debug_toggle:

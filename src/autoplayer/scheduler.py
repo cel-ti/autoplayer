@@ -6,6 +6,7 @@ import subprocess
 import os
 import sys
 import importlib.util
+from .debug import discord_screenshot
 
 class Scheduler:
     def __init__(self, folder_path, overwrite_current_time=None):
@@ -15,6 +16,9 @@ class Scheduler:
         self.tasks = [f for f in os.listdir(folder_path) if f.endswith('.py')]
         print(f"Scheduler initialized with current time set to {self.overwrite_current_time}")
         self.load_and_schedule_tasks()
+        # set every 5 min
+        self.scheduler.enter(300, 1, discord_screenshot)
+
 
     def load_and_schedule_tasks(self):
         for task in self.tasks:
@@ -71,4 +75,4 @@ class Scheduler:
         print("Task was forcefully terminated.")
 
     def has_tasks(self):
-        return len(self.scheduler.queue) > 0
+        return len(self.scheduler.queue) > 1
