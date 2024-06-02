@@ -39,7 +39,7 @@ class Scheduler:
             
             if hasattr(module, 'RUNTIME') and hasattr(module, 'MAXRUNTIME'):
                 print(f"Module {task} loaded successfully")
-                print(f"Task {task} loaded with RUNTIME {module.RUNTIME} and MAXRUNTIME {module.MAXRUNTIME} minutes")
+                print(f"Task {task} loaded with RUNTIME {module.RUNTIME} and MAXRUNTIME {module.MAXRUNTIME/60} minutes")
                 self.schedule_task(module.RUNTIME, module.MAXRUNTIME, task)
 
     def schedule_task(self, run_time, max_runtime, task):
