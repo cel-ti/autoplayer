@@ -66,7 +66,11 @@ class Scheduler:
             else:
                 return
         delay = (scheduled_time - self.overwrite_current_time).total_seconds()
-        print(f"Scheduling {task} to run at {scheduled_time} which is in {delay} seconds")
+        delayMinutes = int(delay / 60)
+        delayHours = int(delayMinutes / 60)
+        delayMinutes = delayMinutes % 60
+        
+        print(f"{task} will run at {scheduled_time} [{delayHours} hours and {delayMinutes} minutes]")
         self.scheduler.enter(delay, 1, self.execute_task, (int(max_runtime), task))
 
     def execute_task(self, max_runtime, task):
