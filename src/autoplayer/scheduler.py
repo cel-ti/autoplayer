@@ -43,7 +43,7 @@ class Scheduler:
             if hasattr(module, "EXPIRE"):
                 # in format YYYY-MM-DD
                 try:
-                    parsedExpire = datetime.datetime.strptime(module.EXPIRE, "%Y-%m-%d")
+                    parsedExpire = datetime.datetime.strptime(module.EXPIRE, "%Y-%m-%d").date()
                     if parsedExpire < self.overwrite_current_time.date():
                         print(f"Skipping task {task} as it is expired on {module.EXPIRE}")
                         continue

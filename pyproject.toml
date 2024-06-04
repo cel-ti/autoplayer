@@ -1,6 +1,6 @@
 [project]
 name = "autoplayer"
-version = "0.1.1"
+version = "0.1.2"
 description = "Add your description here"
 authors = [
     { name = "cel-ti", email = "96926560+cel-ti@users.noreply.github.com" }
