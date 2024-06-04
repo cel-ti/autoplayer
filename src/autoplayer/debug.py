@@ -15,7 +15,7 @@ def debug_on():
 def discord_webhook(image: Image.Image):
     webhook_url = os.getenv("DISCORD_WEBHOOK")
     if not webhook_url:
-        print("No webhook URL provided.")
+        print("No webhook URL provided. (for screenshot image)")
         return
 
     # Convert PIL Image to bytes
@@ -34,6 +34,16 @@ def discord_webhook(image: Image.Image):
         print("Image sent successfully.")
     else:
         print(f"Failed to send image. Status code: {response.status_code}")
+
+def discord_msg(msg : str):
+    webhook_url = os.getenv("DISCORD_WEBHOOK")
+    if not webhook_url:
+        print(f"No webhook URL provided for: {msg}")
+        return
+
+    webhook = DiscordWebhook(url=webhook_url)
+    webhook.content = msg
+    webhook.execute()
 
 def discord_screenshot():
     import pyscreeze
