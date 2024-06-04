@@ -50,7 +50,9 @@ class Scheduler:
                 except ValueError:
                     print(f"Skipping task {task} as it has an invalid expiration date: {module.EXPIRE}")
                     continue
-                
+                assert isinstance(parsedExpire, datetime.date)
+                remainingDays = (parsedExpire - self.overwrite_current_time.date()).days
+                print(f"Task {task} will expire in {remainingDays} days")
             
             if hasattr(module, 'RUNTIME') and hasattr(module, 'MAXRUNTIME'):
                 print(f"Module {task} loaded successfully")
