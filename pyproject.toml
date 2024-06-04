@@ -8,7 +8,7 @@ authors = [
 dependencies = [
     "python-dotenv>=1.0.1",
     "zrcl>=0.3.1",
-    "reldplayer[all]>=0.1.0",
+    "reldplayer[dev]>=0.1.0",
     "pillow>=10.3.0",
     "discord-webhook>=1.3.1",
 ]
