@@ -2,6 +2,6 @@
  
 ## install
 ```bash
-pip install git+https://github.com/cel-ti/autoplayer.git 
+pip install --no-cache-dir  git+https://github.com/cel-ti/autoplayer.git 
 ```
 
