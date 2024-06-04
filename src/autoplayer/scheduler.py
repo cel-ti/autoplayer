@@ -18,13 +18,15 @@ class Scheduler:
         self.folder_path = folder_path
         self.overwrite_current_time = overwrite_current_time if overwrite_current_time else datetime.datetime.now()
         self.tasks = [f for f in os.listdir(folder_path) if f.endswith('.py')]
+        self.currentrunning = []
         print(f"Scheduler initialized with current time set to {self.overwrite_current_time}")
         self.load_and_schedule_tasks()
         # set every 5 min
         self.scheduler.enter(300, 1, self.__auto_screenshot)
 
     def __auto_screenshot(self):
-        discord_screenshot()
+        if self.is_running():
+            discord_screenshot()
         self.scheduler.enter(300, 1, self.__auto_screenshot)
 
     def load_and_schedule_tasks(self):
@@ -83,6 +85,7 @@ class Scheduler:
     def run_task(self, task, max_runtime):
         task_module = self.load_task_module(task)
         if task_module:
+            self.currentrunning.append(task)
             print(f"Starting prerun for {task}")
             if hasattr(task_module, 'prerun'):
                 task_module.prerun()
@@ -95,6 +98,7 @@ class Scheduler:
             process.poll() 
             if hasattr(task_module, 'postrun'):
                 task_module.postrun()
+            self.currentrunning.remove(task)
 
     def load_task_module(self, task):
         task_path = os.path.join(self.folder_path, task)
@@ -114,3 +118,6 @@ class Scheduler:
 
     def has_tasks(self):
         return len(self.scheduler.queue) > 1
+
+    def is_running(self):
+        return len(self.currentrunning) > 0
