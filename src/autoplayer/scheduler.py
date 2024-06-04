@@ -21,8 +21,11 @@ class Scheduler:
         print(f"Scheduler initialized with current time set to {self.overwrite_current_time}")
         self.load_and_schedule_tasks()
         # set every 5 min
-        self.scheduler.enter(300, 1, discord_screenshot)
+        self.scheduler.enter(300, 1, self.__auto_screenshot)
 
+    def __auto_screenshot(self):
+        discord_screenshot()
+        self.scheduler.enter(300, 1, self.__auto_screenshot)
 
     def load_and_schedule_tasks(self):
         for task in self.tasks:
