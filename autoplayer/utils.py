@@ -43,7 +43,7 @@ def ldplayer_kill(player, name : str = None, query : str = None):
 
 def process_kill(name : str):
     for proc in psutil.process_iter():
-        if proc.name() == name:
+        if proc.name() == name or proc.cmdline() == name:
             proc.kill()
 
 def ldplayer_startex(player, pkg : str, name : str= None, query : str = None):
