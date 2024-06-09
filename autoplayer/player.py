@@ -43,7 +43,8 @@ class AutoPlayer:
         self.__mutex = threading.Lock()
 
         self.__parseConfig()
-        self.__autoScreenshot()
+        if self.__currentlyPending:
+            self.__autoScreenshot()
 
     def __autoScreenshot(self):
         if self.isRunning():
