@@ -1,0 +1,40 @@
+[debug]
+debug = true
+discordHook = true
+
+[[task]]
+name = "arknights"
+at = "0205 PM"
+maxruntime = "65*60"
+stop = [
+    {type="ldplayer9_kill", val = "arknights"},
+    {type="process_kill", val="MAA.exe"}
+]
+start = [
+    {type="run", val=["MAA_AFTERNOON_PATH", "MAA_PATH"]},
+    {type="ldplayer9_start",  name = "arknights", pkg="ARKNIGHTS_PKG_NAME"}
+]
+
+[[task]]
+name = "nikke"
+at = "0320 PM"
+maxruntime = "42*60"
+stop = [
+    {type="ldplayer9_kill", val = "nikke"},
+]
+start = [
+    {type="ldplayer9_start",  val = "nikke"},
+]
+
+[[task]]
+name = "re1999"
+at = "0100 PM"
+maxruntime = "50*60"
+expire = "2024-07-01"
+stop = [
+    {type="ldplayer9_kill", val = "re1999"},
+]
+start = [
+    {type="ldplayer9_startex",  name = "re1999", pkg="RE1999_PKG_NAME"},
+    {type="run", env=["M9A_PATH"]}
+]
