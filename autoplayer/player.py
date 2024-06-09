@@ -127,7 +127,7 @@ class AutoPlayer:
                         fetchValue(action["name"])
                     )
                 case "run":
-                    os.startfile(fetchValue(action["val"]))
+                    os.system(fetchValue(action["val"]))
                 case "process_kill" | "kill":
                     utils.process_kill(fetchValue(action["val"]))
                 case "script":
