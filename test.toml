@@ -1,0 +1,23 @@
+[debug]
+debug = true
+discordHook = true
+
+[[task]]
+name = "task1"
+at = "0201 PM"
+maxruntime = "3"
+start = [
+    {type="echo", val="Hello World"},
+    {type="run", val="Notepad.exe"}
+]
+stop = [
+    {type="process_kill", val="Notepad.exe"}
+]
+
+[[task]]
+name = "task2"
+at = "0202 PM"
+maxruntime = "5"
+stop = [
+    {type="echo", val="end World"}
+]
