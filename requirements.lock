@@ -20,6 +20,10 @@ keyboard==0.13.5
     # via autoplayer
 pillow==10.3.0
     # via autoplayer
+psutil==5.9.8
+    # via autoplayer
+pyscreeze==0.1.30
+    # via autoplayer
 python-dotenv==1.0.1
     # via autoplayer
 reldplayer==0.1.0
