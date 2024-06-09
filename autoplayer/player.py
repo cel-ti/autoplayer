@@ -48,6 +48,8 @@ class AutoPlayer:
     def __autoScreenshot(self):
         if self.isRunning():
             self.debugManager.dscreenshot()
+        if not self.__scheduler.queue:
+            return
         self.__scheduler.enter(300, 1, self.__autoScreenshot)
 
     def __parseConfig(self):
