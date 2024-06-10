@@ -130,7 +130,7 @@ class AutoPlayer:
                 case "run":
                     if "args" in action:
                         args = fetchValue(action["args"])
-                    exec_command(fetchValue(action["val"]), args)
+                    os.startfile(fetchValue(action["val"]), arguments=args)
                 case "process_kill" | "kill":
                     utils.process_kill(fetchValue(action["val"]))
                 case "script":
