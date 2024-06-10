@@ -7,7 +7,7 @@ import typing
 import time
 import threading
 from autoplayer.debug import Debug
-from zrcl4.typing import is_valid_typeddict
+from zrcl4.subprocess import exec_command
 import autoplayer.utils as utils
 from autoplayer.model import Task
 
@@ -127,7 +127,7 @@ class AutoPlayer:
                         fetchValue(action["name"])
                     )
                 case "run":
-                    os.system(fetchValue(action["val"]))
+                    exec_command(fetchValue(action["val"]))
                 case "process_kill" | "kill":
                     utils.process_kill(fetchValue(action["val"]))
                 case "script":
