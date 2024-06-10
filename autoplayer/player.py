@@ -96,7 +96,8 @@ class AutoPlayer:
                         continue
 
                     return os.environ[key]
-            
+                return
+
             if data.upper() == data:
                 return os.environ[data]
             
@@ -127,7 +128,9 @@ class AutoPlayer:
                         fetchValue(action["name"])
                     )
                 case "run":
-                    exec_command(fetchValue(action["val"]))
+                    if "args" in action:
+                        args = fetchValue(action["args"])
+                    exec_command(fetchValue(action["val"]), args)
                 case "process_kill" | "kill":
                     utils.process_kill(fetchValue(action["val"]))
                 case "script":
